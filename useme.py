@@ -65,7 +65,7 @@ while(len(plus) != 0 and len(minus) != 0):
 name = []
 col = 2
 for _ in range(n):
-    res = worksheet.cell(1, 2).value
+    res = worksheet.cell(1, col).value
     name.append(res)
     col = col + 2
 
@@ -87,7 +87,7 @@ for i in range(n):
     worksheet2.update_cell(i+2, 1, name[i])
     cell_list = worksheet2.range(i+2, 2, i+2, 2+n)
     for j in range(n):
-        cell_list[j].value = str(rtnarr[j][i])
+        cell_list[j].value = str(rtnarr[i][j])
     worksheet2.update_cells(cell_list)
 
 print('おわり！')
