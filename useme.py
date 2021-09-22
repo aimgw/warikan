@@ -11,9 +11,9 @@ auth.authenticate_user()
 gc = gspread.authorize(GoogleCredentials.get_application_default())
 
 #spreadsheetの取得、シートの指定
-ss_url = ""     #TODO spreadsheetのurlを入力してください
+ss_url = ""     #####TODO spreadsheetのurlを入力してください####################################################
 workbook = gc.open_by_url(ss_url)
-worksheet = workbook.worksheet("シート1")   #TODO 適宜シート名を変更してください
+worksheet = workbook.worksheet("シート3")   #####TODO 適宜シート名を変更してください################################
 
 #人数の取得
 n = worksheet.acell("A2").value
@@ -34,16 +34,16 @@ for i in range(n):
 a = np.array(a)
 S = np.sum(a)
 ave = int(S/n)
-a *= -1 #pythonのheapqはminimum_heapなので最大値を出力するために-1倍する
+#a *= -1 #pythonのheapqはminimum_heapなので最大値を出力するために-1倍する
 
 #貪欲法を行うための準備(heapqに値を格納)
 plus = []
 minus = []
 for i in range(n):
-    if a[i]*-1 - ave > 100:
-        heapq.heappush(plus, [a[i]*-1 - ave, i])
-    elif ave - a[i]*-1 > 100:
-        heapq.heappush(minus, [ave - a[i]*-1, i])
+    if a[i] - ave > 100:
+        heapq.heappush(plus, [(a[i] - ave)*-1, i])
+    elif ave - a[i] > 100:
+        heapq.heappush(minus, [(ave - a[i])*-1, i])
 
 #出力用の二次元配列の初期化
 rtnarr = [[0]*n for i in range(n)]
@@ -52,13 +52,17 @@ rtnarr = [[0]*n for i in range(n)]
 while(len(plus) != 0 and len(minus) != 0):
     x = heapq.heappop(plus)
     y = heapq.heappop(minus)
+    x[0] = x[0] * -1
+    y[0] = y[0] * -1
     res = min(x[0], y[0])
     rtnarr[y[1]][x[1]] = rtnarr[y[1]][x[1]] + res
     if x[0] - res > 100:
-        x[0] = x[0] - 100
+        x[0] = x[0] - res
+        x[0] = x[0] * -1
         heapq.heappush(plus, x)
     if y[0] - res > 100:
         y[0] = y[0] - res
+        y[0] = y[0]*-1
         heapq.heappush(minus, y)
 
 #出力用の名前配列の作成
