@@ -2,7 +2,7 @@
  キャンプや旅行で使える割り勘計算するプログラム
 
  アルゴリズム　もっともお金を払っていない人がもっともお金を払っている人に払い続けるという貪欲的なアルゴリズムです。
-               c++でいうpriority_queueやpythonでいうheapqといったデータ構造を用いることで最大値を取得してこのアルゴリズムを実装しています。
+               c++でいうpriority_queueやpythonでいうheapqといった便利なライブラリを用いることで最大値を取得してこのアルゴリズムを実装しています。
                (参考https://cpprefjp.github.io/reference/queue/priority_queue.html)
 
 useme.pyをGoogle Colaboratoryにコピペして使ってください。
